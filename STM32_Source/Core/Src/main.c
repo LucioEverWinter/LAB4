@@ -97,6 +97,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //0.5
+  //1
+  //1.5
+  //2
+  //2.5
   SCH_Add_Task(led1test, 1000, 2000);
 
   while (1)
