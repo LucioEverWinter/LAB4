@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "global.h"
+//#include "global.h"
 #include "software_timer.h"
 #include "scheduler.h"
 /* USER CODE END Includes */
@@ -58,7 +58,7 @@ static void MX_TIM2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void led1test(){
-	HAL_GPIO_TogglePin(GPIOx, GPIO_Pin)
+	HAL_GPIO_TogglePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin);
 }
 /* USER CODE END 0 */
 
@@ -97,6 +97,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  SCH_Add_Task(led1test, 1000, 2000);
+
   while (1)
   {
 	  SCH_Dispatch_Tasks();
@@ -201,12 +203,12 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
+  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
                           |GPIO_PIN_7, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin PA4 PA5 PA6
+  /*Configure GPIO pins : LED_RED_1_Pin PA4 PA5 PA6
                            PA7 */
-  GPIO_InitStruct.Pin = LED_RED_Pin|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
+  GPIO_InitStruct.Pin = LED_RED_1_Pin|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
                           |GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -216,8 +218,14 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+int counter = 0;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	SCH_Update();
+	counter++;
+	if(counter >= 1000){
+		counter = 0;
+		HAL_GPIO_TogglePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin);
+	}
 }
 /* USER CODE END 4 */
 

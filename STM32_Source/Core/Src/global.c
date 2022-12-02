@@ -7,7 +7,7 @@
 
 #include "global.h"
 
-void display7SEG(int num){
+/*void display7SEG(int num){
 	switch(num){
 	case 0:
 		HAL_GPIO_WritePin ( A_GPIO_Port , A_Pin , GPIO_PIN_RESET ) ;
@@ -102,5 +102,5 @@ void display7SEG(int num){
 	default:
 		break;
 	}
-}
+}*/
 

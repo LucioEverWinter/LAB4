@@ -17,7 +17,7 @@ typedef struct{
 	uint8_t RunMe;
 
 	uint32_t TaskID;
-}sTask;
+}sTasks;
 
 #define SCH_MAX_TASKS 40
 
@@ -29,6 +29,6 @@ void SCH_Update(void);
 
 void SCH_Dispatch_Tasks(void);
 
-void SCH_Delete(unit32_t ID);
+void SCH_Delete(uint32_t ID);
 
 #endif /* INC_SCHEDULER_H_ */
