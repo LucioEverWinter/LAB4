@@ -60,6 +60,18 @@ static void MX_TIM2_Init(void);
 void led1test(){
 	HAL_GPIO_TogglePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin);
 }
+void led2test(){
+	HAL_GPIO_TogglePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin);
+}
+void led3test(){
+	HAL_GPIO_TogglePin(LED_RED_3_GPIO_Port, LED_RED_3_Pin);
+}
+void led4test(){
+	HAL_GPIO_TogglePin(LED_RED_4_GPIO_Port, LED_RED_4_Pin);
+}
+void led5test(){
+	HAL_GPIO_TogglePin(LED_RED_5_GPIO_Port, LED_RED_5_Pin);
+}
 /* USER CODE END 0 */
 
 /**
@@ -102,11 +114,30 @@ int main(void)
   //1.5
   //2
   //2.5
-  SCH_Add_Task(led1test, 1000, 2000);
+  SCH_Init();
+
+  SCH_Add_Task(led1test, 100, 500);
+  SCH_Add_Task(led2test, 200, 1000);
+  SCH_Add_Task(led3test, 300, 1500);
+  SCH_Add_Task(led4test, 400, 2000);
+  SCH_Add_Task(led5test, 500, 2500);
+
+//  setTimer0(1000);
 
   while (1)
   {
-	  SCH_Dispatch_Tasks();
+//	  if( timer0_flag == 1) {
+		  SCH_Dispatch_Tasks();
+
+//		  SCH_Delete(1);
+//		  SCH_Delete(1);
+//		  SCH_Delete(2);
+//		  SCH_Delete(3);
+//		  SCH_Delete(4);
+
+//		  setTimer0(1000);
+//	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -171,7 +202,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 7999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 65535;
+  htim2.Init.Period = 9;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -208,13 +239,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
-                          |GPIO_PIN_7, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin|LED_RED_2_Pin|LED_RED_3_Pin|LED_RED_4_Pin
+                          |LED_RED_5_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_1_Pin PA4 PA5 PA6
-                           PA7 */
-  GPIO_InitStruct.Pin = LED_RED_1_Pin|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
-                          |GPIO_PIN_7;
+  /*Configure GPIO pins : LED_RED_1_Pin LED_RED_2_Pin LED_RED_3_Pin LED_RED_4_Pin
+                           LED_RED_5_Pin */
+  GPIO_InitStruct.Pin = LED_RED_1_Pin|LED_RED_2_Pin|LED_RED_3_Pin|LED_RED_4_Pin
+                          |LED_RED_5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -223,14 +254,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 0;
+//int counter = 0;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	SCH_Update();
-	counter++;
-	if(counter >= 1000){
-		counter = 0;
-		HAL_GPIO_TogglePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin);
-	}
+//	timer_run();
 }
 /* USER CODE END 4 */
 

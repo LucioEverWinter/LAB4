@@ -49,8 +49,12 @@ void SCH_Dispatch_Tasks(void){
 }
 
 void SCH_Delete(uint32_t ID){
-	SCH_tasks_G[ID].pTask = 0x0000;
-	SCH_tasks_G[ID].Delay = 0;
-	SCH_tasks_G[ID].Period = 0;
-	SCH_tasks_G[ID].RunMe = 0;
+	for ( int Index = 0; Index <= SCH_MAX_TASKS; Index++){
+		if (Index == ID){
+			SCH_tasks_G[ID].pTask = 0x0000;
+			SCH_tasks_G[ID].Delay = 0;
+			SCH_tasks_G[ID].Period = 0;
+			SCH_tasks_G[ID].RunMe = 0;
+		}
+	}
 }
