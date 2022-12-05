@@ -44,17 +44,30 @@ void SCH_Dispatch_Tasks(void){
 		if(SCH_tasks_G[i].RunMe > 0){
 			SCH_tasks_G[i].RunMe--;
 			(*SCH_tasks_G[i].pTask)();
+			if(SCH_tasks_G[i].Period == 0){
+				SCH_Delete(i);
+			}
 		}
 	}
 }
 
 void SCH_Delete(uint32_t ID){
-	for ( int Index = 0; Index <= SCH_MAX_TASKS; Index++){
-		if (Index == ID){
-			SCH_tasks_G[ID].pTask = 0x0000;
-			SCH_tasks_G[ID].Delay = 0;
-			SCH_tasks_G[ID].Period = 0;
-			SCH_tasks_G[ID].RunMe = 0;
-		}
+
+	//SCH_tasks_G[ID].pTask = 0x0000;
+	//SCH_tasks_G[ID].Delay = 0;
+	//SCH_tasks_G[ID].Period = 0;
+	//SCH_tasks_G[ID].RunMe = 0;
+
+	for(uint32_t i = ID; i < current_index_task; i++) {
+		SCH_tasks_G[i] = SCH_tasks_G[i+1];
+		//SCH_tasks_G[ID].pTask = 0x0000;
+		//SCH_tasks_G[ID].Delay = 0;
+		//SCH_tasks_G[ID].Period = 0;
+		//SCH_tasks_G[ID].RunMe = 0;
 	}
+	//SCH_tasks_G[current_index_task - 1].pTask = 0x0000;
+	//SCH_tasks_G[current_index_task - 1].Delay = 0;
+	//SCH_tasks_G[current_index_task - 1].Period = 0;
+	//SCH_tasks_G[current_index_task - 1].RunMe = 0;
+	current_index_task--;
 }

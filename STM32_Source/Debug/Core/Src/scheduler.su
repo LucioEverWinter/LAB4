@@ -2,4 +2,4 @@
 ../Core/Src/scheduler.c:17:6:SCH_Add_Task	24	static
 ../Core/Src/scheduler.c:30:6:SCH_Update	16	static
 ../Core/Src/scheduler.c:42:6:SCH_Dispatch_Tasks	16	static
-../Core/Src/scheduler.c:51:6:SCH_Delete	24	static
+../Core/Src/scheduler.c:54:6:SCH_Delete	32	static

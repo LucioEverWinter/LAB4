@@ -116,11 +116,11 @@ int main(void)
   //2.5
   SCH_Init();
 
-  SCH_Add_Task(led1test, 100, 500);
-  SCH_Add_Task(led2test, 200, 1000);
-  SCH_Add_Task(led3test, 300, 1500);
-  SCH_Add_Task(led4test, 400, 2000);
-  SCH_Add_Task(led5test, 500, 2500);
+  SCH_Add_Task(led1test, 50, 50);
+  SCH_Add_Task(led2test, 100, 0);
+  SCH_Add_Task(led3test, 150, 150);
+  SCH_Add_Task(led4test, 200, 200);
+  SCH_Add_Task(led5test, 250, 0);
 
 //  setTimer0(1000);
 
@@ -129,7 +129,7 @@ int main(void)
 //	  if( timer0_flag == 1) {
 		  SCH_Dispatch_Tasks();
 
-//		  SCH_Delete(1);
+
 //		  SCH_Delete(1);
 //		  SCH_Delete(2);
 //		  SCH_Delete(3);
